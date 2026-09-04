@@ -3533,3 +3533,62 @@ and (min-height: 1350px) and (max-height: 1385px) {
     }
 
 }
+
+
+@media (max-width: 700px) {
+  .campaign-hero {
+    min-height: 100svh;
+    height: 100svh;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    justify-content: stretch;
+    overflow: hidden;
+  }
+
+  .promo-bar {
+    min-height: 48px;
+    padding: 5px 7px 3px;
+    gap: 6px;
+    align-items: flex-start;
+    justify-content: center;
+    font-size: clamp(7px, 2.05vw, 9px);
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .promo-logo {
+    width: clamp(92px, 27vw, 112px);
+    max-height: 39px;
+    margin: 0;
+    object-fit: contain;
+  }
+
+  .promo-bar i {
+    width: 1px;
+    height: 27px;
+    margin-top: 1px;
+  }
+
+  .promo-bar span {
+    margin-top: 5px;
+  }
+
+  .hero-stage {
+    position: relative;
+    display: block;
+    min-height: 0;
+    width: 100%;
+    padding: 0;
+    overflow: visible;
+  }
+
+  .subject-wrap {
+    position: absolute;
+    z-index: 4;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 2%;
+    width: min(85vw, 320px);
+    height: 75svh;
+  }
+}
