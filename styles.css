@@ -3528,3 +3528,12 @@ and (min-height: 1350px) and (max-height: 1385px) {
     }
 
 }
+
+
+
+@media (max-width: 700px) {
+  .subject-wrap {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+}
