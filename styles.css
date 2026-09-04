@@ -1,0 +1,3530 @@
+:root{
+  --red:#a00012;
+  --red-dark:#71000b;
+  --red-deep:#320004;
+  --wine:#43060c;
+  --ivory:#fff8ec;
+  --gold:#c5a059;
+  --gold-soft:#f3dea8;
+  --editorial:"Oranienbaum","Cormorant Garamond",serif;
+  --label-sans:"DM Sans",Montserrat,Arial,sans-serif;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--red-deep);color:var(--ivory);font-family:Montserrat,Arial,sans-serif;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+
+/* ========= INTRO ========= */
+.intro{position:fixed;inset:0;z-index:999;display:grid;place-items:center;overflow:hidden;background:var(--wine);transition:opacity .7s ease,visibility .7s ease}
+.intro.hide{opacity:0;visibility:hidden;pointer-events:none}
+.intro-bg{position:absolute;inset:0;background:radial-gradient(circle at 50% 45%,#8a1519 0%,#721013 50%,#3a080a 100%)}
+.intro-bg:after{content:"";position:absolute;inset:-30%;background:conic-gradient(from 30deg,transparent 0 35%,rgba(245,224,163,.06) 40%,transparent 45% 100%);animation:spin 12s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.intro-ring{position:absolute;left:50%;top:47%;translate:-50% -50%;border-radius:50%;border:1px solid rgba(197,160,89,.13)}
+.ring-1{width:min(70vw,560px);aspect-ratio:1}
+.ring-2{width:min(47vw,360px);aspect-ratio:1}
+.corner{position:absolute;left:22px;color:rgba(197,160,89,.62);font-size:10px;letter-spacing:.27em;z-index:3}
+.top-corner{top:22px}.bottom-corner{bottom:22px}
+.skip{position:absolute;right:22px;top:22px;z-index:8;color:var(--gold);border:1px solid rgba(197,160,89,.4);background:rgba(58,8,10,.55);padding:9px 13px;font-size:10px;font-weight:700;letter-spacing:.18em;cursor:pointer}
+#burst{position:absolute;inset:0;width:100%;height:100%;z-index:5;pointer-events:none}
+.intro-center{position:relative;z-index:4;text-align:center;display:flex;flex-direction:column;align-items:center}
+.one-wrap{display:flex;align-items:flex-start;justify-content:center;position:relative}
+.one{font:600 italic clamp(150px,29vw,260px)/.7 "Cormorant Garamond",serif;color:var(--gold);text-shadow:0 0 45px rgba(197,160,89,.45),0 8px 20px rgba(0,0,0,.5);opacity:0;transform:scale(.72);filter:blur(10px);transition:.9s cubic-bezier(.16,1,.3,1)}
+.one.show{opacity:1;transform:scale(1);filter:blur(0)}
+.st{font-size:clamp(22px,5vw,38px);font-weight:700;letter-spacing:.08em;margin-top:12px;margin-left:-7px;opacity:0;transform:translate(-10px,-15px);transition:.7s ease .22s;text-shadow:0 0 20px rgba(197,160,89,.35)}
+.st.show{opacity:1;transform:translate(0,-25px)}
+.anniversary-copy{opacity:0;transform:translateY(14px);transition:.8s ease;letter-spacing:.3em;color:var(--gold);font-size:clamp(18px,3vw,30px);font-weight:700;margin-top:8px}
+.anniversary-copy.show{opacity:1;transform:none}
+.ornament{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:14px}
+.ornament i{height:1px;width:58px;background:linear-gradient(90deg,transparent,var(--gold))}
+.ornament i:last-child{background:linear-gradient(90deg,var(--gold),transparent)}
+.ornament b{font-size:12px}
+.intro-message{display:flex;flex-direction:column;gap:9px;margin-top:23px;opacity:0;transform:translateY(18px) scale(.96);transition:.7s ease}
+.intro-message.show{opacity:1;transform:none}
+.intro-message em{font:500 clamp(17px,2.4vw,22px)/1.4 "Cormorant Garamond",serif;letter-spacing:.07em}
+.intro-message small{color:var(--gold);font-size:9px;letter-spacing:.25em}
+.flare{position:absolute;left:50%;top:50%;translate:-50% -50%;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,#fff2b2 0%,rgba(197,160,89,.76) 36%,transparent 72%);filter:blur(12px);opacity:0}
+.flare.pop{animation:flare .8s ease-out}
+@keyframes flare{0%{opacity:1;transform:scale(.25)}100%{opacity:0;transform:scale(3.6)}}
+.progress{position:absolute;left:0;right:0;bottom:0;height:3px;background:#2c0307}
+.progress i{display:block;width:0;height:100%;background:linear-gradient(90deg,#c5a059,#f5e0a3,#aa771c);animation:progress 4.5s linear forwards}
+@keyframes progress{to{width:100%}}
+.intro.reveal-out{animation:circleout 1.05s cubic-bezier(.85,0,.15,1) forwards}
+@keyframes circleout{from{clip-path:circle(100% at 50% 50%)}to{clip-path:circle(0% at 50% 50%)}}
+
+/* ========= RESPONSIVE PROMOTIONAL HERO ========= */
+.campaign-hero{
+  --hero-x:0px;
+  --hero-y:0px;
+  --hero-scroll:0px;
+  --hero-glow-scroll:0px;
+  min-height:100svh;
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  background:#8b0000;
+}
+
+.hero-bg{
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at 50% 34%,#aa0410 0%,#ad0015 34%,#970010 64%,#8b0000 100%);
+}
+
+.hero-bg:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(ellipse at 50% 45%,rgba(255,215,120,.11),transparent 34%),
+    linear-gradient(180deg,rgba(70,0,0,.05),transparent 28%,transparent 77%,rgba(55,0,0,.12));
+}
+
+.promo-bar{
+  position:relative;
+  z-index:10;
+  min-height:clamp(72px,10svh,112px);
+  padding:clamp(13px,2.1svh,24px) clamp(28px,4.8vw,70px) 6px;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  gap:clamp(24px,3vw,52px);
+  color:#fff;
+  font-family:var(--editorial);
+  font-size:clamp(21px,2.25vw,39px);
+  font-weight:700;
+  letter-spacing:.025em;
+  text-align:left;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+
+.promo-logo{
+  width:clamp(180px,17vw,310px);
+  height:auto;
+  margin-top:-2px;
+  object-fit:contain;
+  filter:drop-shadow(0 2px 9px rgba(40,0,0,.24));
+  flex:0 0 auto;
+}
+
+.promo-bar i{
+  width:2px;
+  height:clamp(34px,5.2svh,58px);
+  margin-top:clamp(4px,.8svh,9px);
+  background:rgba(255,255,255,.78);
+  flex:0 0 auto;
+}
+
+.promo-bar span{
+  margin-top:clamp(6px,1svh,12px);
+}
+
+.hero-stage{
+  position:relative;
+  z-index:3;
+  flex:1;
+  min-height:0;
+  padding:0 clamp(26px,4.6vw,92px);
+  display:grid;
+  grid-template-columns:minmax(260px,1fr) minmax(420px,720px) minmax(260px,1fr);
+  grid-template-rows:minmax(0,1fr);
+  align-items:center;
+  column-gap:clamp(18px,2.8vw,48px);
+}
+
+.model-aura{
+  position:absolute;
+  left:50%;
+  top:46%;
+  z-index:1;
+  width:clamp(380px,40vw,700px);
+  height:clamp(420px,58svh,720px);
+  translate:-50% -50%;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(255,225,142,.18) 0%,rgba(255,202,78,.09) 36%,transparent 70%);
+  filter:blur(8px);
+  transform:translateY(var(--hero-glow-scroll));
+  pointer-events:none;
+}
+
+.subject-wrap{
+  position:relative;
+  grid-column:2;
+  grid-row:1;
+  z-index:4;
+  justify-self:center;
+  align-self:center;
+  width:clamp(420px,38vw,700px);
+  height:min(78svh,830px);
+  max-height:calc(100svh - 158px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  pointer-events:none;
+}
+
+.subject-depth{
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transform:translate3d(var(--hero-x),calc(var(--hero-y) + var(--hero-scroll)),0);
+  transition:transform .42s ease-out;
+}
+
+.subject-wrap img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  filter:saturate(1.04) contrast(1.02);
+}
+
+.offer-copy{
+  position:relative;
+  z-index:6;
+  align-self:center;
+  width:min(100%,390px);
+  margin-top:.8svh;
+  color:#fff;
+  font-family:var(--editorial);
+}
+
+.left-offer{
+  grid-column:1;
+  grid-row:1;
+  justify-self:end;
+}
+
+.right-offer{
+  grid-column:3;
+  grid-row:1;
+  justify-self:start;
+}
+
+.flat{
+  font:400 clamp(34px,3.4vw,66px)/1 var(--editorial);
+  letter-spacing:.24em;
+}
+
+.percent{
+  display:flex;
+  align-items:flex-start;
+  margin-top:6px;
+  font-family:var(--editorial);
+}
+
+.percent strong{
+  font-size:clamp(112px,11.2vw,218px);
+  font-weight:400;
+  line-height:.62;
+}
+
+.percent sup{
+  margin-left:5px;
+  font-size:clamp(45px,5vw,90px);
+  line-height:.8;
+}
+
+.off{
+  display:block;
+  margin:-11px 0 18px 57%;
+  font:400 clamp(34px,3.55vw,66px)/1 var(--editorial);
+}
+
+.bogo{
+  font:400 clamp(72px,7.2vw,134px)/.82 var(--editorial);
+}
+
+.offer-rule{display:none}
+
+.offer-copy p{
+  display:inline-grid;
+  grid-template-rows:2px auto 2px;
+  gap:8px;
+  width:max-content;
+  max-width:100%;
+  margin:0;
+  font-family:var(--label-sans);
+  font-size:clamp(12px,1.22vw,22px);
+  font-weight:800;
+  letter-spacing:.035em;
+  line-height:1;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+
+.offer-copy p:before,
+.offer-copy p:after{
+  content:"";
+  width:100%;
+  height:2px;
+  background:rgba(255,255,255,.64);
+}
+
+.mobile-offers{display:none}
+
+.hero-bottom{
+  position:relative;
+  z-index:8;
+  align-self:center;
+  flex:0 0 auto;
+  width:min(620px,70vw);
+  padding:0 0 clamp(10px,1.45svh,18px);
+  text-align:center;
+  text-shadow:0 2px 10px rgba(70,0,7,.2);
+}
+
+.date{
+  font-size:clamp(18px,1.85vw,32px);
+  white-space:nowrap;
+}
+
+.date sup{font-size:.55em}
+
+.date-rule{
+  width:min(530px,62vw);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  margin:7px auto;
+}
+
+.date-rule span{
+  flex:1;
+  height:2px;
+  background:rgba(255,255,255,.65);
+}
+
+.date-rule b{
+  color:var(--gold-soft);
+  font-size:10px;
+}
+
+.hero-copy{
+  display:grid;
+  gap:2px;
+  margin:0;
+  font-size:clamp(13px,1.22vw,21px);
+  line-height:1.28;
+}
+
+.hero-copy strong{
+  color:#fff;
+  font-weight:700;
+}
+
+.hero-copy mark{
+  padding:0;
+  background:transparent;
+  color:#f1c24a;
+}
+
+.terms{
+  position:absolute;
+  right:clamp(14px,3.9vw,70px);
+  bottom:clamp(9px,1.45svh,17px);
+  z-index:9;
+  font-size:clamp(8px,.72vw,12px);
+  font-weight:600;
+}
+
+.scroll-pill{display:none}
+.hero-anim{opacity:0}
+body.ready .promo-bar{animation:fadeIn .62s ease .05s forwards}
+body.ready .model-aura{animation:auraIn 1s cubic-bezier(.16,1,.3,1) .2s forwards}
+body.ready .subject-wrap{animation:subjectIn 1.04s cubic-bezier(.16,1,.3,1) .22s forwards}
+body.ready .left-offer{animation:leftIn .72s cubic-bezier(.16,1,.3,1) .54s forwards}
+body.ready .right-offer{animation:rightIn .72s cubic-bezier(.16,1,.3,1) .68s forwards}
+body.ready .hero-bottom{animation:upIn .7s ease .86s forwards}
+body.ready .terms{animation:upIn .66s ease .96s forwards}
+
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes downIn{from{opacity:0;transform:translateY(-15px)}to{opacity:1;transform:none}}
+@keyframes auraIn{from{opacity:0;transform:translateY(28px) scale(.92)}to{opacity:1;transform:translateY(var(--hero-glow-scroll)) scale(1)}}
+@keyframes subjectIn{from{opacity:0;transform:translateY(28px) scale(1.035)}to{opacity:1;transform:none}}
+@keyframes leftIn{from{opacity:0;transform:translateX(-35px)}to{opacity:1;transform:none}}
+@keyframes rightIn{from{opacity:0;transform:translateX(35px)}to{opacity:1;transform:none}}
+@keyframes upIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+/* ========= CONTENT AFTER HERO ========= */
+.after-hero{background:linear-gradient(180deg,#2e0004,#5d0009 55%,#290003);padding:100px 6vw 0}
+.after-copy{max-width:900px}
+.after-copy>p:first-child{color:var(--gold);font-size:11px;font-weight:700;letter-spacing:.28em}
+.after-copy h2,.direction h2{font:600 clamp(55px,8vw,105px)/.86 "Cormorant Garamond",serif;margin:16px 0}
+.muted{max-width:540px;opacity:.65;line-height:1.8}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:70px}
+.card{min-height:430px;border:1px solid rgba(197,160,89,.4);padding:32px;background:radial-gradient(circle at 70% 20%,rgba(205,145,55,.14),transparent 26%),#69000b}
+.card>span{float:right;color:var(--gold)}
+.card small{font-size:10px;letter-spacing:.23em;color:var(--gold)}
+.card h3{font:600 clamp(100px,14vw,185px)/.72 "Cormorant Garamond",serif;color:#efd28f;margin:95px 0 8px}
+.card h3 sup{font-size:.35em}
+.card strong{font:600 30px "Cormorant Garamond",serif;letter-spacing:.12em}
+.card .card-bogo{font-size:clamp(70px,9vw,126px);margin-top:90px}
+.direction{text-align:center;margin:80px -6vw 0;padding:100px 20px 120px;background:radial-gradient(circle at 50% 45%,#930016,#4a0007 60%,#250003)}
+.direction>p{color:var(--gold);font-size:11px;letter-spacing:.24em}
+.direction>a{display:inline-flex;align-items:center;justify-content:space-between;gap:70px;min-width:310px;margin-top:25px;padding:16px 20px 16px 25px;border-radius:999px;color:#3a080a;background:linear-gradient(110deg,#f3d58c,#c99843,#f4dca4);font-size:12px;font-weight:700;letter-spacing:.12em}
+.direction>small{display:block;margin-top:25px;opacity:.5}
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* ========= MOBILE AND TABLET HERO ========= */
+@media(max-width:900px){
+  .corner{left:14px;font-size:8px}.top-corner{top:16px}.bottom-corner{bottom:16px}
+  .skip{right:14px;top:14px}
+  .anniversary-copy{font-size:16px;letter-spacing:.2em}
+
+  .promo-bar{
+    min-height:clamp(42px,5.8svh,54px);
+    padding:clamp(5px,.8svh,8px) 6px 2px;
+    gap:clamp(5px,1.45vw,8px);
+    align-items:flex-start;
+    font-size:clamp(7.8px,2.34vw,10.8px);
+    font-weight:700;
+    letter-spacing:.035em;
+  }
+
+  .promo-logo{
+    width:clamp(92px,27vw,128px);
+    margin-top:0;
+  }
+
+  .promo-bar i{width:1px;height:clamp(23px,4.4svh,34px);margin-top:2px}
+  .promo-bar span{margin-top:clamp(4px,.8svh,7px)}
+
+  .hero-stage{
+    display:block;
+    position:relative;
+    padding:0 8px;
+    flex:.98 1 auto;
+  }
+
+  .model-aura{
+    top:42%;
+    width:72vw;
+    max-width:345px;
+    height:52svh;
+    opacity:.65;
+  }
+
+  .subject-wrap{
+    position:absolute;
+    left:50%;
+    top:clamp(4px,1.1svh,12px);
+    bottom:0;
+    translate:-50% 0;
+    width:min(59vw,296px);
+    height:auto;
+    max-height:none;
+  }
+
+  .subject-wrap img{
+    object-position:center top;
+  }
+
+  .left-offer,.right-offer{display:none}
+
+  .mobile-offers{
+    position:absolute;
+    z-index:9;
+    left:7px;
+    right:7px;
+    top:43%;
+    transform:translateY(-50%);
+    display:grid;
+    grid-template-columns:minmax(60px,74px) 1fr minmax(66px,82px);
+    align-items:center;
+    color:#fff;
+    text-align:center;
+    text-shadow:0 2px 7px rgba(84,0,8,.22);
+    pointer-events:none;
+  }
+
+  body.ready .mobile-offers{
+    animation:mobileOffersIn .68s cubic-bezier(.16,1,.3,1) .78s forwards;
+  }
+
+  .mobile-divider{
+    width:1px;
+    height:clamp(55px,8svh,70px);
+    justify-self:center;
+    background:rgba(255,255,255,.2);
+  }
+
+  .mobile-offer{
+    width:100%;
+    max-width:none;
+    justify-self:center;
+    font-family:var(--editorial);
+  }
+
+  .mobile-offer small{
+    display:block;
+    font:600 clamp(11px,3.15vw,14px)/1 var(--editorial);
+    letter-spacing:.16em;
+  }
+
+  .mobile-offer>strong{
+    display:block;
+    font:600 clamp(34px,9.75vw,42px)/.64 var(--editorial);
+  }
+
+  .mobile-offer>strong sup{font-size:.45em}
+
+  .mobile-offer>span{
+    font:600 clamp(11.5px,3.4vw,15.5px)/1 var(--editorial);
+  }
+
+  .mobile-offer p{
+    display:inline-grid;
+    grid-template-rows:1px auto 1px;
+    gap:3px;
+    width:max-content;
+    max-width:100%;
+    margin:6px auto 0;
+    font-family:var(--label-sans);
+    font-size:clamp(6.6px,1.88vw,8.2px);
+    font-weight:800;
+    line-height:1;
+    letter-spacing:.015em;
+    text-transform:uppercase;
+    white-space:nowrap;
+  }
+
+  .mobile-offer p:before,
+  .mobile-offer p:after{
+    content:"";
+    width:100%;
+    height:1px;
+    background:rgba(255,255,255,.62);
+  }
+
+  .mobile-bogo{
+    font-size:clamp(22px,6.55vw,29px)!important;
+    line-height:.82!important;
+  }
+
+  .hero-bottom{
+    position:relative;
+    left:auto;
+    bottom:auto;
+    translate:none;
+    align-self:center;
+    width:94%;
+    padding:0 0 clamp(5px,.9svh,10px);
+  }
+
+  .date{font-size:clamp(13px,3.6vw,16px)}
+  .date-rule{width:min(225px,60vw);margin:4px auto}
+  .date-rule span{height:1.5px}
+
+  .hero-copy{
+    gap:1px;
+    font-size:clamp(9.3px,2.72vw,12px);
+    line-height:1.15;
+  }
+
+  .terms{
+    right:10px;
+    bottom:4px;
+    font-size:7px;
+  }
+
+  .after-hero{padding:78px 20px 0}
+  .cards{grid-template-columns:1fr;margin-top:50px}
+  .card{min-height:340px;padding:25px}
+  .card h3{margin-top:65px}
+  .card .card-bogo{margin-top:60px}
+  .direction{margin:60px -20px 0;padding:75px 20px 90px}
+}
+
+@keyframes mobileOffersIn{
+  from{opacity:0;transform:translateY(calc(-50% + 18px))}
+  to{opacity:1;transform:translateY(-50%)}
+}
+
+@media(min-width:701px) and (max-width:900px){
+  .promo-bar{font-size:13px;gap:18px;min-height:64px;padding-top:8px}
+  .promo-logo{width:170px}
+  .hero-stage{padding-bottom:0}
+  .subject-wrap{width:min(42vw,340px);top:22px;bottom:0}
+  .mobile-offers{left:8vw;right:8vw;top:43%;grid-template-columns:minmax(96px,128px) 1fr minmax(108px,142px)}
+  .mobile-offer{max-width:150px}
+  .mobile-offer small{font-size:19px}
+  .mobile-offer>strong{font-size:64px}
+  .mobile-offer>span{font-size:22px}
+  .mobile-bogo{font-size:46px!important}
+  .mobile-offer p{font-size:9.5px}
+  .hero-bottom{padding-bottom:16px}
+  .date{font-size:17px}
+  .hero-copy{font-size:12px}
+  .terms{bottom:8px;font-size:8px}
+}
+
+@media(max-width:430px) and (max-height:760px){
+  .promo-bar{min-height:40px;padding-top:5px}
+  .promo-logo{width:88px}
+  .hero-stage{padding-bottom:0}
+  .subject-wrap{width:min(58vw,240px);top:4px;bottom:0}
+  .mobile-offers{top:42%;grid-template-columns:minmax(56px,68px) 1fr minmax(62px,74px)}
+  .mobile-offer small{font-size:clamp(10px,2.95vw,12px)}
+  .mobile-offer>strong{font-size:clamp(31px,8.9vw,37px)}
+  .mobile-offer>span{font-size:clamp(11px,3.15vw,13.5px)}
+  .mobile-bogo{font-size:clamp(20.5px,5.95vw,24.5px)!important}
+  .mobile-offer p{font-size:clamp(5.8px,1.64vw,6.8px)}
+  .hero-bottom{padding-bottom:5px}
+  .date{font-size:12px}
+  .hero-copy{font-size:8.8px}
+  .terms{bottom:4px}
+}
+
+@media(min-width:901px) and (max-height:780px){
+  .promo-bar{min-height:62px;padding-top:9px;font-size:clamp(18px,1.9vw,30px)}
+  .promo-logo{width:clamp(165px,14vw,240px)}
+  .hero-stage{
+    grid-template-columns:minmax(210px,1fr) minmax(340px,520px) minmax(210px,1fr);
+    column-gap:clamp(18px,2.8vw,42px);
+  }
+  .subject-wrap{
+    width:clamp(340px,30vw,520px);
+    height:min(72svh,570px);
+    max-height:calc(100svh - 132px);
+  }
+  .offer-copy{width:min(100%,330px)}
+  .flat{font-size:clamp(29px,2.9vw,46px)}
+  .percent strong{font-size:clamp(92px,9.2vw,145px)}
+  .percent sup{font-size:clamp(38px,4.1vw,61px)}
+  .off{font-size:clamp(29px,3vw,46px)}
+  .bogo{font-size:clamp(58px,5.8vw,92px)}
+  .offer-copy p{font-size:clamp(10px,1vw,16px)}
+  .date{font-size:clamp(15px,1.45vw,22px)}
+  .hero-copy{font-size:clamp(11px,1vw,15px)}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{animation-duration:.001ms!important;transition-duration:.001ms!important}
+}
+.off {
+    display: block;
+    margin: -11px 0 18px 35%;
+    font: 400 clamp(34px, 3.55vw, 66px) / 1 var(--editorial);
+}
+
+
+
+
+/* VISAGA MOBILE HERO FIX
+   Append this entire block at the VERY END of styles.css.
+   It keeps the desktop HTML and reuses the desktop offer blocks on mobile.
+*/
+
+@media (max-width:700px){
+
+  .campaign-hero{
+    min-height:100svh;
+    height:100svh;
+    display:grid;
+    grid-template-rows:auto minmax(0,1fr) auto;
+    justify-content:stretch;
+    overflow:hidden;
+  }
+
+  .promo-bar{
+    min-height:48px;
+    padding:5px 7px 3px;
+    gap:6px;
+    align-items:flex-start;
+    justify-content:center;
+    font-size:clamp(7px,2.05vw,9px);
+    line-height:1;
+    white-space:nowrap;
+  }
+
+  .promo-logo{
+    width:clamp(92px,27vw,112px);
+    max-height:39px;
+    margin:0;
+    object-fit:contain;
+  }
+
+  .promo-bar i{
+    width:1px;
+    height:27px;
+    margin-top:1px;
+  }
+
+  .promo-bar span{
+    margin-top:5px;
+  }
+
+  .hero-stage{
+    position:relative;
+    display:block;
+    min-height:0;
+    width:100%;
+    padding:0;
+    overflow:visible;
+  }
+
+  .subject-wrap{
+    position:absolute;
+    z-index:4;
+    left:50%;
+    top:1.5%;
+    bottom:1%;
+    width:min(88vw,340px);
+    height:auto;
+    max-height:none;
+    translate:-50% 0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    pointer-events:none;
+  }
+
+  .subject-depth{
+    width:100%;
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .subject-wrap img{
+    display:block;
+    width:100%;
+    height:100%;
+    max-width:100%;
+    max-height:100%;
+    object-fit:contain;
+    object-position:center;
+  }
+
+  .model-aura{
+    left:50%;
+    top:35%;
+    width:82vw;
+    max-width:350px;
+    height:52svh;
+    opacity:.5;
+  }
+
+  /* Reuse desktop offers on mobile */
+  .mobile-offers{
+    display:none !important;
+  }
+
+  .left-offer,
+  .right-offer{
+    display:block;
+    position:absolute;
+    z-index:8;
+    top:48%;
+    width:96px;
+    margin:0;
+    color:#fff;
+    transform:none;
+  }
+
+  .left-offer{
+    left:8px;
+    right:auto;
+    text-align:left;
+  }
+
+  .right-offer{
+    right:8px;
+    left:auto;
+    width:102px;
+    text-align:left;
+  }
+
+  .flat{
+    display:block;
+    font:400 clamp(13px,3.8vw,16px)/1 var(--editorial);
+    letter-spacing:.18em;
+  }
+
+  .percent{
+    margin-top:2px;
+  }
+
+  .percent strong{
+    font-size:clamp(42px,12.3vw,51px);
+    line-height:.62;
+  }
+
+  .percent sup{
+    margin-left:1px;
+    font-size:clamp(18px,5.2vw,22px);
+  }
+
+  .off{
+    margin:-4px 0 6px 42%;
+    font:400 clamp(15px,4.2vw,18px)/1 var(--editorial);
+  }
+
+  .bogo{
+    font:400 clamp(27px,7.9vw,33px)/.8 var(--editorial);
+  }
+
+  .offer-copy p{
+    display:inline-grid;
+    grid-template-rows:1px auto 1px;
+    gap:3px;
+    width:100%;
+    max-width:100%;
+    margin:0;
+    font-family:var(--label-sans);
+    font-size:clamp(5.5px,1.58vw,6.7px);
+    font-weight:800;
+    line-height:1;
+    letter-spacing:0;
+    text-align:left;
+    white-space:nowrap;
+  }
+
+  .offer-copy p::before,
+  .offer-copy p::after{
+    width:100%;
+    height:1px;
+  }
+
+  .hero-bottom{
+    position:relative;
+    z-index:10;
+    width:100%;
+    padding:3px 14px 20px;
+    margin:0;
+    align-self:end;
+    text-align:center;
+    background:transparent;
+  }
+
+  .date{
+    font-size:clamp(12px,3.45vw,14px);
+    line-height:1.1;
+  }
+
+  .date-rule{
+    width:min(210px,58vw);
+    margin:6px auto;
+  }
+
+  .date-rule span{
+    height:1.5px;
+  }
+
+  .date-rule b{
+    font-size:7px;
+  }
+
+  .hero-copy{
+    gap:1px;
+    font-size:clamp(8.8px,2.5vw,10.5px);
+    line-height:1.2;
+  }
+
+  .terms{
+    right:9px;
+    bottom:5px;
+    font-size:6.7px;
+  }
+
+  body.ready .left-offer{
+    animation:leftIn .72s cubic-bezier(.16,1,.3,1) .54s forwards;
+  }
+
+  body.ready .right-offer{
+    animation:rightIn .72s cubic-bezier(.16,1,.3,1) .68s forwards;
+  }
+
+  body.ready .mobile-offers{
+    animation:none !important;
+  }
+}
+
+@media (max-width:380px){
+
+  .promo-logo{width:90px}
+  .promo-bar{gap:5px;font-size:6.8px}
+  .subject-wrap{width:min(86vw,318px)}
+
+  .left-offer{
+    left:6px;
+    width:86px;
+  }
+
+  .right-offer{
+    right:6px;
+    width:92px;
+  }
+
+  .left-offer,
+  .right-offer{
+    top:48.5%;
+  }
+
+  .flat{font-size:12px}
+  .percent strong{font-size:43px}
+  .percent sup{font-size:18px}
+
+  .off{
+    margin-left:39%;
+    font-size:14px;
+  }
+
+  .bogo{font-size:27px}
+  .offer-copy p{font-size:5.4px}
+  .hero-bottom{padding-bottom:18px}
+}
+
+@media (max-width:430px) and (max-height:720px){
+
+  .promo-bar{
+    min-height:42px;
+    padding-top:4px;
+  }
+
+  .promo-logo{
+    width:86px;
+    max-height:34px;
+  }
+
+  .promo-bar i{height:23px}
+
+  .subject-wrap{
+    width:min(78vw,282px);
+    top:1%;
+    bottom:0;
+  }
+
+  .left-offer,
+  .right-offer{
+    top:47%;
+  }
+
+  .left-offer{width:82px}
+  .right-offer{width:88px}
+  .flat{font-size:11px}
+  .percent strong{font-size:39px}
+  .percent sup{font-size:16px}
+  .off{font-size:13px}
+  .bogo{font-size:24px}
+  .offer-copy p{font-size:5px}
+
+  .hero-bottom{
+    padding:2px 10px 16px;
+  }
+
+  .date{font-size:11px}
+  .hero-copy{font-size:8px}
+
+  .terms{
+    bottom:3px;
+    font-size:6px;
+  }
+}
+
+@media (min-width:381px) and (max-width:430px) and (min-height:800px){
+
+  .subject-wrap{
+    width:min(90vw,350px);
+  }
+
+  .left-offer,
+  .right-offer{
+    top:49%;
+  }
+
+  .left-offer{
+    left:9px;
+    width:100px;
+  }
+
+  .right-offer{
+    right:9px;
+    width:108px;
+  }
+
+  .bogo{font-size:34px}
+}
+
+@media (min-width: 381px) and (max-width: 430px) and (min-height: 800px) {
+    .left-offer, .right-offer {
+        top: 45%;
+    }
+}
+
+@media (min-width: 381px) and (max-width: 430px) and (min-height: 800px) {
+    .subject-wrap {
+        width: min(90vw, 230px);
+        align-items: center;
+        left: 56%;
+    }
+}
+
+@media (max-width: 700px) {
+    .campaign-hero {
+        min-height: 60svh;
+        height: 60svh;
+        display: grid;
+        grid-template-rows: auto minmax(0, 1fr) auto;
+        justify-content: stretch;
+        overflow: hidden;
+    }
+}
+
+@media (max-width: 700px) {
+    .percent {
+        margin-top: 8px;
+        font-size: 45px;
+    }
+}
+
+@media (min-width: 381px) and (max-width: 430px) and (min-height: 800px) {
+    .bogo {
+        font-size: 45px;
+    }
+}
+
+@media (max-width: 700px) {
+    .flat {
+        display: block;
+        font: 400 clamp(13px, 5vw, 20px) / 1 var(--editorial);
+        letter-spacing: .18em;
+    }
+}
+
+@media (max-width: 700px) {
+    .percent sup {
+        margin-left: 1px;
+        font-size: clamp(18px, 10vw, 50px);
+        margin-top: -12px;
+    }
+}
+
+@media (max-width: 700px) {
+    .off {
+        margin: -4px 0 6px 45%;
+        font: 400 clamp(15px, 7vw, 50px) / 1 var(--editorial);
+    }
+}
+
+@media (min-width: 381px) and (max-width: 430px) and (min-height: 800px) {
+    .left-offer {
+        left: 15px;
+        width: 100px;
+    }
+}
+
+@media (max-width: 700px) {
+    .percent strong {
+        font-size: clamp(42px, 16.3vw, 70px);
+        line-height: .62;
+    }
+}
+@media (max-width: 700px) {
+    .off {
+        margin: -4px 0 -10px 42%;
+        font: 400 clamp(15px, 7vw, 50px) / 1 var(--editorial);
+    }
+}
+
+@media (max-width: 700px) {
+    .off {
+        margin: -17px 0 -3px 52%;
+        font: 400 clamp(15px, 5vw, 50px) / 1 var(--editorial);
+        
+    }
+}
+
+@media (max-width: 700px) {
+    .offer-copy p {
+        display: inline-grid;
+        grid-template-rows: 1px auto 1px;
+        gap: 3px;
+        width: 100%;
+        max-width: 100%;
+        margin-top: -10px ;
+        font-family: var(--label-sans);
+        font-size: clamp(5.5px, 3vw, 15px);
+        font-weight: 800;
+        line-height: 1;
+        letter-spacing: 0;
+        text-align: left;
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 700px) {
+    .percent strong {
+        font-size: clamp(42px, 17.3vw, 75px);
+        line-height: .62;
+    }
+}
+
+@media (max-width: 700px) {
+    .promo-bar i {
+        width: 1px;
+        height: 15px;
+        margin-top: 1px;
+    }
+}
+
+
+/* =========================================================
+   VISAGA CAMPAIGN FOOTER
+   ========================================================= */
+
+.campaign-footer{
+  position:relative;
+  z-index:20;
+  background:#f6f1ea;
+  color:#171311;
+  overflow:hidden;
+}
+
+
+/* ---------- PAYMENT SECTION ---------- */
+
+.footer-payments{
+  max-width:1180px;
+  margin:0 auto;
+  padding:50px 32px 42px;
+  text-align:center;
+}
+
+.footer-eyebrow{
+  margin:0 0 25px;
+  font-family:var(--label-sans);
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:#786f69;
+}
+
+.payment-methods{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:45px;
+}
+
+.payment-method{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  text-align:left;
+}
+
+.payment-method img{
+  width:auto;
+  max-width:105px;
+  height:30px;
+  object-fit:contain;
+}
+
+.payment-method div{
+  display:grid;
+  gap:3px;
+}
+
+.payment-method strong{
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.04em;
+}
+
+.payment-method span{
+  font-size:10px;
+  color:#756c66;
+}
+
+.payment-divider{
+  width:1px;
+  height:40px;
+  background:rgba(23,19,17,.12);
+}
+
+
+/* ---------- STORE SECTION ---------- */
+
+.footer-store{
+  max-width:1180px;
+  margin:0 auto;
+  padding:72px 32px;
+  border-top:1px solid rgba(23,19,17,.1);
+  text-align:center;
+}
+
+.footer-store-copy{
+  max-width:700px;
+  margin:0 auto;
+}
+
+.footer-store h2{
+  margin:0;
+  font-family:var(--editorial);
+  font-size:clamp(42px,5vw,70px);
+  font-weight:400;
+  line-height:.93;
+  color:#1b1614;
+}
+
+.footer-description{
+  max-width:540px;
+  margin:22px auto 0;
+  font-size:13px;
+  line-height:1.75;
+  color:#706762;
+}
+
+
+/* ---------- DIRECTIONS BUTTON ---------- */
+
+.directions-button{
+  width:min(440px,100%);
+  min-height:54px;
+  margin:35px auto 0;
+
+  display:grid;
+  grid-template-columns:26px 1fr 26px;
+  align-items:center;
+  gap:12px;
+
+  padding:0 20px;
+
+  background:#240407;
+  color:#fff;
+
+  border-radius:7px;
+
+  font-family:var(--label-sans);
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.15em;
+
+  transition:
+    transform .25s ease,
+    background .25s ease;
+}
+
+.directions-button:hover{
+  background:#2a2522;
+}
+
+.directions-icon{
+  width:20px;
+  height:20px;
+}
+
+.directions-icon svg{
+  width:100%;
+  height:100%;
+}
+
+.directions-arrow{
+  justify-self:end;
+  font-size:18px;
+  transition:transform .25s ease;
+}
+
+.directions-button:hover .directions-arrow{
+  transform:translateX(4px);
+}
+
+
+/* ---------- STORE META ---------- */
+
+.store-meta{
+  max-width:600px;
+  margin:30px auto 0;
+
+  display:grid;
+  grid-template-columns:1fr 1fr;
+
+  border-top:1px solid rgba(23,19,17,.1);
+  border-bottom:1px solid rgba(23,19,17,.1);
+}
+
+.store-meta-item{
+  min-height:80px;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:12px;
+
+  padding:15px 20px;
+  color:#171311;
+}
+
+.store-meta-item + .store-meta-item{
+  border-left:1px solid rgba(23,19,17,.1);
+}
+
+.meta-icon{
+  width:23px;
+  height:23px;
+}
+
+.meta-icon svg{
+  width:100%;
+  height:100%;
+}
+
+.store-meta-item div{
+  display:grid;
+  gap:3px;
+  text-align:left;
+}
+
+.store-meta-item small{
+  font-size:8px;
+  font-weight:700;
+  letter-spacing:.14em;
+  color:#8b817a;
+}
+
+.store-meta-item strong{
+  font-size:11px;
+}
+
+
+/* ---------- SOCIAL ---------- */
+
+.footer-social{
+  padding:42px 24px 45px;
+  text-align:center;
+}
+
+.footer-social .footer-eyebrow{
+  margin-bottom:18px;
+}
+
+.social-links{
+  display:flex;
+  justify-content:center;
+  gap:13px;
+}
+
+.social-button{
+  width:34px;
+  height:34px;
+
+  display:grid;
+  place-items:center;
+
+  border-radius:50%;
+
+  background:#181513;
+  color:#fff;
+
+  transition:
+    transform .25s ease,
+    opacity .25s ease;
+}
+
+.social-button:hover{
+  transform:translateY(-2px) scale(1.05);
+  opacity:.82;
+}
+
+.social-button svg{
+  width:17px;
+  height:17px;
+}
+
+
+/* ---------- FOOTER BOTTOM ---------- */
+
+.footer-bottom{
+  padding:38px 32px 25px;
+  background:#eee8e1;
+  text-align:center;
+}
+
+.footer-brand img{
+  width:130px;
+  max-height:60px;
+  object-fit:contain;
+}
+
+.footer-bottom-line{
+  width:min(390px,70%);
+  height:1px;
+  margin:26px auto 18px;
+  background:rgba(23,19,17,.1);
+}
+
+.footer-legal{
+  max-width:720px;
+  margin:0 auto;
+
+  display:flex;
+  justify-content:space-between;
+
+  color:#857b75;
+
+  font-size:9px;
+  letter-spacing:.06em;
+}
+
+
+/* =========================================================
+   FOOTER MOBILE
+   ========================================================= */
+
+@media(max-width:700px){
+
+  .footer-payments{
+    padding:35px 20px 30px;
+  }
+
+  .footer-eyebrow{
+    font-size:8px;
+    margin-bottom:20px;
+  }
+
+  .payment-methods{
+    gap:16px;
+  }
+
+  .payment-method{
+    flex:1;
+    gap:8px;
+  }
+
+  .payment-method img{
+    max-width:65px;
+    height:24px;
+  }
+
+  .payment-method strong{
+    font-size:8px;
+  }
+
+  .payment-method span{
+    font-size:7px;
+    line-height:1.25;
+  }
+
+  .payment-divider{
+    height:35px;
+  }
+
+
+  /* STORE */
+
+  .footer-store{
+    padding:55px 22px;
+  }
+
+  .footer-store h2{
+    font-size:42px;
+  }
+
+  .footer-description{
+    max-width:310px;
+    margin-top:17px;
+    font-size:10px;
+    line-height:1.65;
+  }
+
+
+  /* CTA */
+
+  .directions-button{
+    min-height:50px;
+    margin-top:27px;
+    font-size:9px;
+    border-radius:6px;
+  }
+
+
+  /* STORE INFO */
+
+  .store-meta{
+    margin-top:25px;
+  }
+
+  .store-meta-item{
+    min-height:68px;
+    gap:8px;
+    padding:10px 7px;
+  }
+
+  .meta-icon{
+    width:19px;
+    height:19px;
+  }
+
+  .store-meta-item small{
+    font-size:6px;
+  }
+
+  .store-meta-item strong{
+    font-size:8px;
+  }
+
+
+  /* SOCIAL */
+
+  .footer-social{
+    padding:35px 20px 40px;
+  }
+
+  .social-button{
+    width:32px;
+    height:32px;
+  }
+
+  .social-button svg{
+    width:15px;
+    height:15px;
+  }
+
+
+  /* BOTTOM */
+
+  .footer-bottom{
+    padding:32px 20px 20px;
+  }
+
+  .footer-brand img{
+    width:110px;
+  }
+
+  .footer-bottom-line{
+    margin:22px auto 15px;
+  }
+
+  .footer-legal{
+    font-size:7px;
+  }
+}
+
+/* =========================================================
+   FOOTER SIZE REFINEMENT
+   Keep existing footer design — only improve scale/readability
+   ========================================================= */
+
+@media (max-width:700px){
+
+  /* More premium breathing room */
+  .footer-payments{
+    padding:42px 22px 36px;
+  }
+
+  .footer-eyebrow{
+    font-size:9px;
+    letter-spacing:.22em;
+    margin-bottom:24px;
+  }
+
+
+  /* ---------- KOKO / MINTPAY ---------- */
+
+  .payment-methods{
+    gap:20px;
+  }
+
+  .payment-method{
+    gap:10px;
+  }
+
+  .payment-method img{
+    max-width:78px;
+    height:28px;
+  }
+
+  .payment-method strong{
+    font-size:9px;
+  }
+
+  .payment-method span{
+    font-size:8px;
+    line-height:1.35;
+  }
+
+  .payment-divider{
+    height:44px;
+  }
+
+
+  /* ---------- STORE SECTION ---------- */
+
+  .footer-store{
+    padding:64px 22px;
+  }
+
+  .footer-store .footer-eyebrow{
+    font-size:9px;
+  }
+
+  .footer-store h2{
+    font-size:48px;
+    line-height:.92;
+  }
+
+  .footer-description{
+    max-width:330px;
+    margin-top:20px;
+    font-size:11px;
+    line-height:1.7;
+  }
+
+
+  /* ---------- GET DIRECTIONS ---------- */
+
+  .directions-button{
+    min-height:56px;
+    margin-top:32px;
+
+    padding-inline:20px;
+
+    font-size:10px;
+    letter-spacing:.14em;
+  }
+
+  .directions-icon{
+    width:22px;
+    height:22px;
+  }
+
+  .directions-arrow{
+    font-size:20px;
+  }
+
+
+  /* ---------- STORE + CONTACT ---------- */
+
+  .store-meta{
+    margin-top:30px;
+  }
+
+  .store-meta-item{
+    min-height:78px;
+    padding:13px 8px;
+    gap:10px;
+  }
+
+  .meta-icon{
+    width:22px;
+    height:22px;
+  }
+
+  .store-meta-item small{
+    font-size:7px;
+    letter-spacing:.15em;
+  }
+
+  .store-meta-item strong{
+    font-size:9px;
+  }
+
+
+  /* ---------- SOCIAL ---------- */
+
+  .footer-social{
+    padding:45px 20px 48px;
+  }
+
+  .footer-social .footer-eyebrow{
+    font-size:9px;
+    margin-bottom:22px;
+  }
+
+  .social-links{
+    gap:16px;
+  }
+
+  .social-button{
+    width:38px;
+    height:38px;
+  }
+
+  .social-button svg{
+    width:18px;
+    height:18px;
+  }
+
+
+  /* ---------- VISAGA FOOTER LOGO ---------- */
+
+  .footer-bottom{
+    padding:38px 20px 24px;
+  }
+
+  .footer-brand img{
+    width:145px;
+    max-height:68px;
+  }
+
+  .footer-bottom-line{
+    width:72%;
+    margin:28px auto 18px;
+  }
+
+  .footer-legal{
+    font-size:8px;
+  }
+}
+
+
+@media (max-width: 700px) {
+    .footer-store {
+        padding: 44px 22px;
+    }
+}
+
+@media (max-width: 700px) {
+    .payment-method img {
+        max-width: 155px;
+        height: 88px;
+        transform: translateX(0%);
+    }
+}
+@media (max-width: 700px) {
+    .payment-method span {
+        font-size: 6px;
+        line-height: 1.35;
+    }
+}
+
+  .payment-method img {
+        max-width: 155px;
+        height: 88px;
+        transform: translateX(0%);
+    }
+
+
+
+    /* =========================================================
+   TABLET HERO
+   iPad Mini / iPad Air
+   Keep layout — only increase campaign offer scale
+   ========================================================= */
+
+@media (min-width:700px) and (max-width:1024px){
+
+  /* Keep model/layout unchanged */
+
+  .left-offer{
+    width:clamp(135px,18vw,185px);
+  }
+
+  .right-offer{
+    width:clamp(145px,19vw,195px);
+  }
+
+
+  /* FLAT */
+
+  .flat{
+    font-size:clamp(23px,3vw,32px);
+
+    letter-spacing:.2em;
+  }
+
+
+  /* 15% */
+
+  .percent strong{
+    font-size:clamp(75px,9.6vw,98px);
+  }
+
+  .percent sup{
+    font-size:clamp(31px,4.2vw,43px);
+  }
+
+
+  /* OFF */
+
+  .off{
+    margin-left:42%;
+
+    font-size:clamp(25px,3.3vw,35px);
+  }
+
+
+  /* BUY 1 GET 1 */
+
+  .bogo{
+    font-size:clamp(48px,6.3vw,66px);
+    line-height:.8;
+  }
+
+
+  /* Product labels */
+
+  .offer-copy p{
+    font-size:clamp(8px,1.15vw,11px);
+  }
+}
+
+@media (max-width:480px) and (max-height:720px){
+
+  .promo-bar{
+    min-height:40px;
+  }
+
+  .promo-logo{
+    width:82px;
+    max-height:33px;
+  }
+
+  .promo-bar i{
+    height:21px;
+  }
+
+
+  .subject-wrap{
+    width:min(75vw,280px);
+  }
+
+
+  .left-offer,
+  .right-offer{
+    top:47%;
+  }
+
+
+  .left-offer{
+    width:80px;
+  }
+
+  .right-offer{
+    width:86px;
+  }
+
+
+  .flat{
+    font-size:10px;
+  }
+
+  .percent strong{
+    font-size:37px;
+  }
+
+  .percent sup{
+    font-size:15px;
+  }
+
+  .off{
+    font-size:12px;
+  }
+
+  .bogo{
+    font-size:23px;
+  }
+
+  .offer-copy p{
+    font-size:4.8px;
+  }
+
+
+  .hero-bottom{
+    padding-bottom:15px;
+  }
+
+  .date{
+    font-size:10.5px;
+  }
+
+  .hero-copy{
+    font-size:7.7px;
+  }
+}
+
+
+
+
+/* =========================================================
+   ANNIVERSARY INTRO TYPOGRAPHY REFINEMENT
+   ========================================================= */
+
+.one-wrap{
+  position:relative;
+  display:inline-flex;
+  align-items:flex-start;
+  justify-content:center;
+}
+
+/* Main anniversary numeral */
+.one{
+  font-family:"Oranienbaum","Cormorant Garamond",serif;
+  font-style:normal;
+  font-weight:400;
+
+  font-size:clamp(160px,18vw,245px);
+  line-height:.72;
+
+  color:#cfa759;
+
+  text-shadow:
+    0 0 35px rgba(207,167,89,.24),
+    0 6px 20px rgba(0,0,0,.28);
+
+  letter-spacing:-.035em;
+}
+
+/* Proper superscript */
+.st{
+  position:absolute;
+
+  top:-8%;
+  right:-48%;
+
+  margin:0;
+  padding:0;
+
+  font-family:"DM Sans",Montserrat,sans-serif;
+  font-size:clamp(22px,2.8vw,38px);
+  font-weight:800;
+  line-height:1;
+
+  color:#fff8ec;
+  letter-spacing:0;
+
+  transform:none;
+}
+
+/* Important: preserve animation */
+.st.show{
+  opacity:1;
+  transform:none;
+}
+
+/* YEAR ANNIVERSARY */
+.anniversary-copy{
+  margin-top:12px;
+
+  font-family:"DM Sans",Montserrat,sans-serif;
+  font-size:clamp(18px,2.3vw,31px);
+  font-weight:700;
+
+  letter-spacing:.28em;
+  color:#cfa759;
+}
+
+@media(max-width:700px){
+
+  .one{
+    font-size:clamp(135px,39vw,175px);
+  }
+
+  .st{
+    top:-1%;
+    right:-18%;
+
+    font-size:clamp(19px,5.5vw,25px);
+  }
+
+  .anniversary-copy{
+    margin-top:8px;
+
+    font-size:clamp(14px,4vw,18px);
+    letter-spacing:.22em;
+  }
+}
+
+
+
+/* =========================================================
+   DEVICE-SPECIFIC FINAL RESPONSIVE FIXES
+   IMPORTANT:
+   - Keep all existing desktop/mobile CSS unchanged.
+   - Add these at the VERY END of styles.css.
+   - Pixel 7 / currently approved mobile layout is untouched.
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   SAMSUNG GALAXY S8+
+   Reference viewport: 360 × 740
+   --------------------------------------------------------- */
+
+@media
+  (min-width: 350px) and
+  (max-width: 370px) and
+  (min-height: 720px) and
+  (max-height: 760px){
+
+  .campaign-hero{
+    min-height:100svh;
+    height:100svh;
+  }
+
+  .promo-logo{
+    width:86px;
+  }
+
+  .subject-wrap{
+    left:50%;
+    width:76vw;
+    max-width:274px;
+    top:1%;
+    bottom:1%;
+  }
+
+  .left-offer,
+  .right-offer{
+    top:47%;
+  }
+
+  .left-offer{
+    left:6px;
+    width:82px;
+  }
+
+  .right-offer{
+    right:6px;
+    width:88px;
+  }
+
+  .flat{
+    font-size:11px;
+  }
+
+  .percent strong{
+    font-size:40px;
+  }
+
+  .percent sup{
+    font-size:16px;
+  }
+
+  .off{
+    margin:-7px 0 -2px 48%;
+    font-size:13px;
+  }
+
+  .bogo{
+    font-size:24px;
+  }
+
+  .offer-copy p{
+    margin-top:0;
+    font-size:5px;
+  }
+
+  .hero-bottom{
+    padding-bottom:16px;
+  }
+
+  .date{
+    font-size:10.5px;
+  }
+
+  .hero-copy{
+    font-size:7.8px;
+  }
+
+  .terms{
+    right:6px;
+    bottom:3px;
+    font-size:6px;
+  }
+}
+
+
+/* ---------------------------------------------------------
+   iPHONE 375 WIDTH
+   Example: 375 × 667 / similar short iPhones
+   --------------------------------------------------------- */
+
+@media
+  (min-width: 371px) and
+  (max-width: 379px) and
+  (max-height: 720px){
+
+  .campaign-hero{
+    min-height:100svh;
+    height:100svh;
+  }
+
+  .promo-logo{
+    width:84px;
+  }
+
+  .subject-wrap{
+    left:50%;
+    width:73vw;
+    max-width:274px;
+    top:1%;
+    bottom:1%;
+  }
+
+  .left-offer,
+  .right-offer{
+    top:46.5%;
+  }
+
+  .left-offer{
+    left:7px;
+    width:84px;
+  }
+
+  .right-offer{
+    right:7px;
+    width:90px;
+  }
+
+  .flat{
+    font-size:11px;
+  }
+
+  .percent strong{
+    font-size:41px;
+  }
+
+  .percent sup{
+    font-size:17px;
+  }
+
+  .off{
+    margin:-7px 0 -2px 48%;
+    font-size:13px;
+  }
+
+  .bogo{
+    font-size:25px;
+  }
+
+  .offer-copy p{
+    margin-top:0;
+    font-size:5px;
+  }
+
+  .date{
+    font-size:10.5px;
+  }
+
+  .hero-copy{
+    font-size:7.8px;
+  }
+}
+
+
+/* ---------------------------------------------------------
+   iPHONE 390 / 393 WIDTH
+   Example: 390 × 844 / 393 × 852
+   Make composition match approved Pixel 7
+   --------------------------------------------------------- */
+
+@media
+  (min-width: 386px) and
+  (max-width: 398px) and
+  (min-height: 800px) and
+  (max-height: 880px){
+
+  .campaign-hero{
+    min-height:100svh;
+    height:100svh;
+  }
+
+  .promo-logo{
+    width:96px;
+  }
+
+  .subject-wrap{
+    left:50%;
+    width:84vw;
+    max-width:330px;
+    top:1%;
+    bottom:1%;
+  }
+
+  .left-offer,
+  .right-offer{
+    top:47.5%;
+  }
+
+  .left-offer{
+    left:8px;
+    width:92px;
+  }
+
+  .right-offer{
+    right:8px;
+    width:98px;
+  }
+
+  .flat{
+    font-size:14px;
+  }
+
+  .percent strong{
+    font-size:47px;
+  }
+
+  .percent sup{
+    font-size:20px;
+  }
+
+  .off{
+    margin:-7px 0 -2px 46%;
+    font-size:16px;
+  }
+
+  .bogo{
+    font-size:30px;
+  }
+
+  .offer-copy p{
+    margin-top:0;
+    font-size:6px;
+  }
+
+  .date{
+    font-size:12.5px;
+  }
+
+  .hero-copy{
+    font-size:9px;
+  }
+}
+
+
+/* ---------------------------------------------------------
+   IMPORTANT
+   PIXEL 7
+   Approx. 412 × 915
+   NO OVERRIDES.
+
+   This intentionally leaves the current approved Pixel 7
+   composition exactly as it is.
+   --------------------------------------------------------- */
+
+
+/* ---------------------------------------------------------
+   iPHONE 14 PRO MAX / LARGE iPHONE
+   Reference viewport: 430 × 932
+   --------------------------------------------------------- */
+
+@media
+  (min-width: 424px) and
+  (max-width: 434px) and
+  (min-height: 900px) and
+  (max-height: 950px){
+
+  .campaign-hero{
+    min-height:100svh;
+    height:100svh;
+  }
+
+  .promo-logo{
+    width:104px;
+  }
+
+  .subject-wrap{
+    left:50%;
+    width:82vw;
+    max-width:350px;
+    top:1%;
+    bottom:1%;
+  }
+
+  .left-offer,
+  .right-offer{
+    top:47.5%;
+  }
+
+  .left-offer{
+    left:10px;
+    width:100px;
+  }
+
+  .right-offer{
+    right:10px;
+    width:108px;
+  }
+
+  .flat{
+    font-size:15px;
+  }
+
+  .percent strong{
+    font-size:52px;
+  }
+
+  .percent sup{
+    font-size:22px;
+  }
+
+  .off{
+    margin:-8px 0 -2px 46%;
+    font-size:17px;
+  }
+
+  .bogo{
+    font-size:33px;
+  }
+
+  .offer-copy p{
+    margin-top:0;
+    font-size:6.4px;
+  }
+
+  .date{
+    font-size:13px;
+  }
+
+  .hero-copy{
+    font-size:9.4px;
+  }
+
+  .terms{
+    right:8px;
+    bottom:5px;
+  }
+
+      .offer-copy p::before, .offer-copy p::after {
+        width: 59%;
+        height: 1px;
+    }
+    
+}
+
+
+/* =========================================================
+   TABLETS
+   Do NOT change layout/model position.
+   Only increase offer typography as requested.
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   iPAD MINI
+   Reference: 768 × 1024
+   --------------------------------------------------------- */
+
+@media
+  (min-width: 750px) and
+  (max-width: 790px) and
+  (min-height: 990px) and
+  (max-height: 1050px){
+
+  /* Do not change subject-wrap */
+
+  .mobile-offer small{
+    font-size:22px;
+  }
+
+  .mobile-offer > strong{
+    font-size:76px;
+  }
+
+  .mobile-offer > span{
+    font-size:26px;
+  }
+
+  .mobile-bogo{
+    font-size:56px !important;
+    line-height:.8 !important;
+  }
+
+  .mobile-offer p{
+    font-size:11px;
+  }
+
+  .date{
+    font-size:18px;
+  }
+
+  .hero-copy{
+    font-size:13px;
+  }
+   .campaign-hero {
+        min-height: 65svh;
+        height: 65svh;
+    }
+  
+}
+
+
+/* ---------------------------------------------------------
+   iPAD AIR
+   Typical reference: 820 × 1180
+   --------------------------------------------------------- */
+
+@media
+  (min-width: 800px) and
+  (max-width: 850px) and
+  (min-height: 1150px) and
+  (max-height: 1210px){
+
+  /* Keep existing image/layout exactly as it is */
+
+  .mobile-offer small{
+    font-size:24px;
+  }
+
+  .mobile-offer > strong{
+    font-size:82px;
+  }
+
+  .mobile-offer > span{
+    font-size:28px;
+  }
+
+  .mobile-bogo{
+    font-size:60px !important;
+    line-height:.8 !important;
+  }
+
+  .mobile-offer p{
+    font-size:12px;
+  }
+
+  .date{
+    font-size:19px;
+  }
+
+  .hero-copy{
+    font-size:14px;
+  }
+  .campaign-hero {
+        min-height: 60svh;
+        height: 60svh;
+    }
+}
+
+@media (min-width: 350px) and (max-width: 370px) and (min-height: 720px) and (max-height: 760px) {
+    .campaign-hero {
+        min-height: 70svh;
+        height: 70svh;
+    }
+    .model-aura {
+      left: 100%;
+    } 
+}
+
+@media (min-width: 424px) and (max-width: 434px) and (min-height: 900px) and (max-height: 950px) {
+    .campaign-hero {
+        min-height: 70svh;
+        height: 70svh;
+    }
+}
+@media (min-width: 371px) and (max-width: 379px) and (max-height: 720px) {
+    .campaign-hero {
+        min-height: 80svh;
+        height: 80svh;
+    }
+}
+
+@media (min-width: 371px) and (max-width: 379px) and (max-height: 720px) {
+    .campaign-hero {
+        min-height: 75svh;
+        height: 75svh;
+    }
+}
+
+@media (min-width: 386px) and (max-width: 398px) and (min-height: 800px) and (max-height: 880px) {
+    .campaign-hero {
+        min-height: 70svh;
+        height: 70svh;
+    }
+}
+
+@media (min-width: 386px) and (max-width: 398px) and (min-height: 800px) and (max-height: 880px) {
+    .subject-wrap {
+        left: 55%;
+        width: 74vw;
+        max-width: 330px;
+        top: 1%;
+        bottom: 1%;
+    }
+}
+
+@media (min-width: 371px) and (max-width: 379px) and (max-height: 720px) {
+    .subject-wrap {
+        left: 55%;
+        width: 73vw;
+        max-width: 274px;
+        top: 1%;
+        bottom: 1%;
+    }
+}
+
+@media (min-width: 350px) and (max-width: 370px) and (min-height: 720px) and (max-height: 760px) {
+    .subject-wrap {
+        left: 55%;
+        width: 70vw;
+        max-width: 274px;
+        top: 1%;
+        bottom: 1%;
+    }
+}
+
+@media (min-width: 424px) and (max-width: 434px) and (min-height: 900px) and (max-height: 950px) {
+    .subject-wrap {
+        left: 55%;
+        width: 72vw;
+        max-width: 350px;
+        top: 1%;
+        bottom: 1%;
+    }
+}
+
+
+/* =========================================================
+   iPHONE 16 PRO MAX
+   DevTools: 440 × 956
+   IMPORTANT:
+   Must stay AFTER all @media(max-width:700px) rules.
+   ========================================================= */
+
+@media
+  (min-width: 435px) and
+  (max-width: 445px) and
+  (min-height: 940px) and
+  (max-height: 970px) {
+
+  /* Only this device overrides the Pixel 7 mobile rules */
+
+  .campaign-hero{
+    min-height:100svh;
+    height:100svh;
+  }
+
+  .promo-bar{
+    min-height:48px;
+    padding:5px 7px 3px;
+    gap:7px;
+  }
+
+  .promo-logo{
+    width:108px;
+    max-height:40px;
+  }
+
+  .promo-bar i{
+    height:25px;
+  }
+
+
+  /* Woman */
+  .subject-wrap{
+    left:50%;
+    top:1%;
+    bottom:1%;
+
+    width:350px;
+    max-width:82vw;
+
+    translate:-50% 0;
+  }
+
+
+  /* Offers */
+  .left-offer,
+  .right-offer{
+    top:47%;
+  }
+
+  .left-offer{
+    left:11px;
+    width:103px;
+  }
+
+  .right-offer{
+    right:11px;
+    width:110px;
+  }
+
+
+  /* FLAT */
+  .flat{
+    font-size:15px;
+  }
+
+
+  /* 15 */
+  .percent strong{
+    font-size:54px;
+  }
+
+  .percent sup{
+    font-size:23px;
+    margin-top:-4px;
+  }
+
+
+  /* OFF */
+  .off{
+    margin:-8px 0 -2px 46%;
+    font-size:18px;
+  }
+
+
+  /* BUY 1 / GET 1 */
+  .bogo{
+    font-size:35px;
+    line-height:.8;
+  }
+
+
+  /* ON ALL PRODUCTS / ON FANCY SAREES */
+  .offer-copy p{
+    margin-top:0;
+    font-size:6.5px;
+  }
+
+
+  /* Bottom */
+  .hero-bottom{
+    width:100%;
+    padding:2px 12px 20px;
+  }
+
+  .date{
+    font-size:13.5px;
+  }
+
+  .date-rule{
+    width:225px;
+    margin:5px auto;
+  }
+
+  .hero-copy{
+    font-size:9.5px;
+    line-height:1.18;
+  }
+
+  .terms{
+    right:8px;
+    bottom:5px;
+    font-size:6.5px;
+  }
+}
+
+@media (min-width: 435px) and (max-width: 445px) and (min-height: 940px) and (max-height: 970px) {
+    .campaign-hero {
+        min-height: 70svh;
+        height: 70svh;
+    }
+
+        .model-aura {
+        left: 60%;
+        transform: translateX(-70%);
+        top: 35%;
+        width: 82vw;
+        max-width: 350px;
+        height: 52svh;
+        opacity: .5;
+    }
+}
+
+/* =========================================================
+   iPhone 16 Pro Max — 440 x 956
+   Only fine-tune model aura position/size
+   ========================================================= */
+@media (min-width: 435px) and (max-width: 445px)
+and (min-height: 940px) and (max-height: 970px) {
+
+  .campaign-hero {
+    min-height: 70svh;
+    height: 70svh;
+  }
+
+  .model-aura {
+    left: 80%;
+    top: 35%;
+    width: 82vw;
+    max-width: 350px;
+    height: 52svh;
+    opacity: .5;
+
+    /* Keep the animation, but force this device's position */
+    transform: translateX(-70%) !important;
+  }
+}
+
+@media (min-width: 800px) and (max-width: 850px) and (min-height: 1150px) and (max-height: 1210px) {
+    .mobile-offer small {
+        font-size: 24px;
+        line-height: 2.2;
+    }
+}
+@media (min-width: 800px) and (max-width: 850px) and (min-height: 1150px) and (max-height: 1210px) {
+    .mobile-offer > span {
+        font-size: 28px;
+          .percent strong {
+        font-size: clamp(75px, 9.6vw, 98px);
+    }
+}
+
+.percent strong {
+    font-size: clamp(112px, 11.2vw, 218px);
+    font-weight: 400;
+    line-height: .62;
+  
+}
+
+
+    
+}
+
+@media (min-width: 424px) and (max-width: 434px) and (min-height: 900px) and (max-height: 950px) {
+    .off {
+        margin: -13px 0 -2px 54%;
+        font-size: 17px;
+    }
+}
+@media (min-width: 424px) and (max-width: 434px) and (min-height: 900px) and (max-height: 950px) {
+    .bogo {
+        font-size: 43px;
+    }
+        .percent strong {
+        font-size: 72px;
+        }
+            .percent sup {
+        font-size: 50px;}
+
+        .offer-copy p {
+        margin-top: 0;
+        font-size: 10.4px;}
+            .offer-copy p::before, .offer-copy p::after {
+        width: 96%;
+        height: 1px;}
+}
+
+@media (min-width: 435px) and (max-width: 445px) and (min-height: 940px) and (max-height: 970px) {
+    .bogo {
+        font-size: 45px;
+        line-height: .8;
+    }
+        .percent strong {
+        font-size: 64px;
+    }
+        .percent sup {
+        font-size: 38px;
+        margin-top: -4px;
+    }
+        .offer-copy p::before, .offer-copy p::after {
+        width: 94%;
+        height: 1px;
+    }
+        .offer-copy p {
+        margin-top: 0;
+        font-size: 10.5px;
+    }
+
+        .model-aura {
+        left: 80%;
+        top: 35%;
+        width: 22vw;
+        max-width: 350px;
+        height: 52svh;
+        opacity: .5;
+        transform: translateX(-70%) !important;}
+}
+
+@media (min-width: 350px) and (max-width: 370px) and (min-height: 720px) and (max-height: 760px) {
+    .flat {
+        font-size: 18px;
+    }
+        .percent strong {
+        font-size: 60px;
+    }
+        .percent sup {
+        font-size: 36px;
+    }
+    .off {
+        margin: -7px 0 -2px 48%;
+        font-size: 23px;
+    }
+        .bogo {
+        font-size: 42px;
+    }
+    .offer-copy p {
+        margin-top: 0;
+        font-size: 10px;
+    }
+    
+}
+
+
+@media (min-width: 386px) and (max-width: 398px) and (min-height: 800px) and (max-height: 880px) {
+    .bogo {
+        font-size: 45px;
+    }
+    .percent strong {
+        font-size: 67px;
+    }
+        .percent sup {
+        font-size: 50px;
+    }
+        .off {
+        margin: -7px 0 -2px 46%;
+        font-size: 24px;
+    }
+    .offer-copy p {
+        margin-top: 0;
+        font-size: 10px;
+    }
+    
+
+}
+
+@media (min-width: 371px) and (max-width: 379px) and (max-height: 720px) {
+    .bogo {
+        font-size: 40px;
+    }
+    .flat {
+        font-size: 15px;
+    }
+    .percent strong {
+        font-size: 57px;
+    }
+        .percent sup {
+        font-size: 47px;
+    }
+    .off {
+        margin: -7px 0 -2px 55%;
+        font-size: 25px;
+    }
+    .offer-copy p {
+        margin-top: 0;
+        font-size: 10px;
+    }
+}
+
+
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 34%, #aa0410 0%, #ad0015 34%, #970010 44%, #8b0000 100%);
+}
+
+
+
+/* =========================================================
+   iPhone 16 Pro Max — 440 × 956 ONLY
+   Subject/image positioning
+   ========================================================= */
+
+@media (min-width: 435px) and (max-width: 445px)
+and (min-height: 940px) and (max-height: 970px) {
+
+    .subject-wrap {
+        left: 53% !important;
+        top: 10% !important;
+        width: 64vw !important;
+        max-width: 350px !important;
+        bottom: auto !important;
+    }
+}
+
+@media (min-width: 435px) and (max-width: 445px) and (min-height: 940px) and (max-height: 970px) {
+    .campaign-hero {
+        min-height: 65svh;
+        height: 65svh;
+    }
+}
+
+
+@media (min-width: 424px) and (max-width: 434px) and (min-height: 900px) and (max-height: 950px) {
+    .campaign-hero {
+        min-height: 65svh;
+        height: 65svh;
+ 
+      }
+        .subject-wrap {
+        left: 53% !important;
+        top: 10% !important;
+        width: 64vw !important;
+        max-width: 350px !important;
+        bottom: auto !important;
+    }
+}
+
+@media (min-width: 386px) and (max-width: 398px) and (min-height: 800px) and (max-height: 880px) {
+    .campaign-hero {
+        min-height: 65svh;
+        height: 65svh;
+    }
+       .subject-wrap {
+        left: 53% !important;
+        top: 10% !important;
+        width: 64vw !important;
+        max-width: 350px !important;
+        bottom: auto !important;
+    }
+}
+
+@media (min-width: 371px) and (max-width: 379px) and (max-height: 720px) {
+    .campaign-hero {
+        min-height: 75svh;
+        height: 75svh;
+    }
+      .subject-wrap {
+        left: 54% !important;
+        top: 10% !important;
+        width: 64vw !important;
+        max-width: 350px !important;
+        bottom: auto !important;
+    }
+}
+
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 34%, #aa0410 0%, #ad0015 34%, #970010 54%, #8b0000 100%);
+}
+
+@media (min-width: 750px) and (max-width: 790px) and (min-height: 990px) and (max-height: 1050px) {
+    .mobile-offer small {
+        font-size: 32px;
+        line-height: 1.8;
+    }
+        .mobile-offer > strong {
+        font-size: 86px;
+    }
+    .mobile-offer>strong sup {
+        font-size: .65em;
+    }
+    .mobile-offer > span {
+        font-size: 36px;
+        margin-left: 10% !important;
+    }
+        .mobile-offer p {
+        font-size: 18px;
+    }
+}
+
+
+
+/* =========================================================
+   GALAXY Z FOLD 5
+   Viewport: 344 × 882
+   Mobile-specific adjustment ONLY
+   ========================================================= */
+
+@media (min-width: 340px) and (max-width: 350px)
+and (min-height: 875px) and (max-height: 890px) {
+
+    .campaign-hero {
+        min-height: 70svh;
+        height: 70svh;
+    }
+
+    .promo-bar {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .subject-wrap {
+        width: 78vw;
+        max-width: 285px;
+    }
+
+    .left-offer {
+        left: 3%;
+    }
+
+    .right-offer {
+        right: 3%;
+    }
+
+    .hero-bottom {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+}
+
+/* =========================================================
+   SURFACE PRO 7
+   Viewport: 912 × 1368
+   Tablet-specific offer typography ONLY
+   ========================================================= */
+
+@media (min-width: 900px) and (max-width: 925px)
+and (min-height: 1350px) and (max-height: 1385px) {
+
+    .left-offer .flat {
+        font-size: 1.35em;
+    }
+
+    .left-offer .percent strong {
+        font-size: 1.45em;
+    }
+
+    .left-offer .percent sup {
+        font-size: 0.65em;
+    }
+
+    .left-offer .off {
+        font-size: 1.15em;
+    }
+
+    .left-offer p {
+        font-size: 0.95em;
+    }
+
+    .right-offer .bogo {
+        font-size: 1.45em;
+        line-height: 0.9;
+    }
+
+    .right-offer p {
+        font-size: 0.95em;
+    }
+
+}
+
+@media (min-width: 340px) and (max-width: 350px) and (min-height: 875px) and (max-height: 890px) {
+    .campaign-hero {
+        min-height: 60svh;
+        height: 60svh;
+    }
+      .subject-wrap {
+        left: 54% !important;
+        top: 10% !important;
+        width: 64vw !important;
+        max-width: 350px !important;
+        bottom: auto !important;
+    }
+
+}
+
+/* =========================================================
+   iPad Pro — 1024 × 1366
+   Only adjust the model image.
+   Do NOT change the existing layout.
+   ========================================================= */
+@media (min-width: 1000px) and (max-width: 1050px)
+       and (min-height: 1330px) and (max-height: 1400px) {
+        .campaign-hero{
+            min-height: 70svh;
+            height: 70svh;
+        }
+
+    
+}
+
+
+/* =========================================================
+   VISAGA 1ST ANNIVERSARY
+   PREMIUM CELEBRATION EFFECTS
+   ---------------------------------------------------------
+   ADD THIS AT THE VERY BOTTOM OF styles.css
+   ========================================================= */
+
+
+/* =========================================================
+   1. INTRO — ANNIVERSARY GLOW
+   ========================================================= */
+
+.one-wrap {
+    position: relative;
+}
+
+.one-wrap::before {
+    content: "";
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255, 220, 145, 0.20) 0%,
+            rgba(255, 205, 100, 0.08) 38%,
+            transparent 72%
+        );
+
+    pointer-events: none;
+
+    animation:
+        anniversaryOneGlow 3s ease-in-out infinite;
+}
+
+
+@keyframes anniversaryOneGlow {
+
+    0%,
+    100% {
+        transform: translate(-50%, -50%) scale(0.90);
+        opacity: 0.45;
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.10);
+        opacity: 0.90;
+    }
+
+}
+
+
+/* Keep the number above the glow */
+
+.one,
+.st {
+    position: relative;
+    z-index: 2;
+}
+
+
+/* =========================================================
+   2. HERO — CELEBRATION PARTICLES
+   ========================================================= */
+
+.celebration-particles {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    pointer-events: none;
+
+    z-index: 1;
+}
+
+
+/*
+   Make sure the existing hero content stays above
+   the celebration layer.
+*/
+
+.campaign-hero .promo-bar,
+.campaign-hero .hero-stage,
+.campaign-hero .hero-bottom,
+.campaign-hero .terms,
+.campaign-hero .scroll-pill {
+    position: relative;
+    z-index: 3;
+}
+
+
+/* =========================================================
+   INDIVIDUAL PARTICLES
+   ========================================================= */
+
+.celebration-particle {
+    position: absolute;
+
+    display: block;
+
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: 18px;
+
+    line-height: 1;
+
+    color: rgba(255, 220, 145, 0.60);
+
+    text-shadow:
+        0 0 10px rgba(255, 215, 120, 0.25);
+
+    opacity: 0;
+
+    animation:
+        celebrationFloat 6s ease-in-out infinite;
+}
+
+
+/* ---------------------------------------------------------
+   Particle positions
+   --------------------------------------------------------- */
+
+.particle-1 {
+    left: 18%;
+    top: 30%;
+    animation-delay: 0s;
+    font-size: 15px;
+}
+
+.particle-2 {
+    left: 28%;
+    top: 42%;
+    animation-delay: 1.2s;
+    font-size: 12px;
+}
+
+.particle-3 {
+    left: 76%;
+    top: 28%;
+    animation-delay: 2.1s;
+    font-size: 16px;
+}
+
+.particle-4 {
+    left: 84%;
+    top: 48%;
+    animation-delay: 0.8s;
+    font-size: 20px;
+}
+
+.particle-5 {
+    left: 14%;
+    top: 58%;
+    animation-delay: 2.8s;
+    font-size: 11px;
+}
+
+.particle-6 {
+    left: 88%;
+    top: 64%;
+    animation-delay: 1.7s;
+    font-size: 14px;
+}
+
+.particle-7 {
+    left: 23%;
+    top: 72%;
+    animation-delay: 3.5s;
+    font-size: 18px;
+}
+
+.particle-8 {
+    left: 72%;
+    top: 74%;
+    animation-delay: 4.2s;
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   PARTICLE ANIMATION
+   ========================================================= */
+
+@keyframes celebrationFloat {
+
+    0% {
+        transform:
+            translate3d(0, 14px, 0)
+            rotate(0deg)
+            scale(0.75);
+
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 0.65;
+    }
+
+    50% {
+        transform:
+            translate3d(8px, -8px, 0)
+            rotate(12deg)
+            scale(1);
+
+        opacity: 0.75;
+    }
+
+    80% {
+        opacity: 0.35;
+    }
+
+    100% {
+        transform:
+            translate3d(-6px, -28px, 0)
+            rotate(-8deg)
+            scale(0.70);
+
+        opacity: 0;
+    }
+
+}
+
+
+/* =========================================================
+   3. MODEL AURA — SUBTLE GOLD CELEBRATION GLOW
+   ---------------------------------------------------------
+   We are NOT changing its position, width or height.
+   Only adding a warm glow layer.
+   ========================================================= */
+
+.model-aura {
+    isolation: isolate;
+}
+
+.model-aura::after {
+    content: "";
+
+    position: absolute;
+
+    inset: -12%;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255, 214, 120, 0.18) 0%,
+            rgba(255, 195, 80, 0.08) 38%,
+            transparent 72%
+        );
+
+    pointer-events: none;
+
+    z-index: -1;
+
+    animation:
+        modelCelebrationGlow 4s ease-in-out infinite;
+}
+
+
+@keyframes modelCelebrationGlow {
+
+    0%,
+    100% {
+        opacity: 0.45;
+        transform: scale(0.96);
+    }
+
+    50% {
+        opacity: 0.85;
+        transform: scale(1.04);
+    }
+
+}
+
+
+/* =========================================================
+   4. FOOTER — ANNIVERSARY DIVIDER
+   ========================================================= */
+
+.anniversary-divider {
+    width: min(86%, 620px);
+
+    margin: 28px auto 34px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 16px;
+
+    text-align: center;
+}
+
+
+/* Gold stars */
+
+.anniversary-divider > span {
+    flex: 0 0 auto;
+
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: 16px;
+
+    color: rgba(160, 116, 38, 0.70);
+
+    line-height: 1;
+
+    animation:
+        anniversaryStarPulse 3s ease-in-out infinite;
+}
+
+
+.anniversary-divider > span:last-child {
+    animation-delay: 1.5s;
+}
+
+
+/* Center copy */
+
+.anniversary-divider-copy {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 4px;
+}
+
+
+.anniversary-divider-copy small {
+    font-family: "Montserrat", sans-serif;
+
+    font-size: 7px;
+
+    font-weight: 600;
+
+    letter-spacing: 0.28em;
+
+    color: rgba(80, 67, 50, 0.60);
+}
+
+
+.anniversary-divider-copy strong {
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    letter-spacing: 0.08em;
+
+    color: #463b2e;
+}
+
+
+/* =========================================================
+   FOOTER DIVIDER LINES
+   ========================================================= */
+
+.anniversary-divider::before,
+.anniversary-divider::after {
+    content: "";
+
+    height: 1px;
+
+    flex: 1;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(160, 116, 38, 0.35)
+        );
+}
+
+
+.anniversary-divider::after {
+    background:
+        linear-gradient(
+            90deg,
+            rgba(160, 116, 38, 0.35),
+            transparent
+        );
+}
+
+
+@keyframes anniversaryStarPulse {
+
+    0%,
+    100% {
+        opacity: 0.45;
+        transform: scale(0.9);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.15);
+    }
+
+}
+
+
+/* =========================================================
+   5. MOBILE — KEEP CELEBRATION VERY SUBTLE
+   ---------------------------------------------------------
+   This does NOT change your existing mobile layout.
+   It only reduces visual intensity.
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .celebration-particle {
+        font-size: 12px;
+    }
+
+    .particle-1 {
+        left: 10%;
+    }
+
+    .particle-2 {
+        left: 22%;
+    }
+
+    .particle-3 {
+        left: 80%;
+    }
+
+    .particle-4 {
+        left: 88%;
+    }
+
+    .particle-5 {
+        left: 8%;
+    }
+
+    .particle-6 {
+        left: 91%;
+    }
+
+    .particle-7 {
+        left: 16%;
+    }
+
+    .particle-8 {
+        left: 82%;
+    }
+
+
+    .one-wrap::before {
+        width: 140px;
+        height: 140px;
+    }
+
+
+    .anniversary-divider {
+        width: 88%;
+
+        gap: 10px;
+
+        margin-top: 24px;
+        margin-bottom: 28px;
+    }
+
+
+    .anniversary-divider-copy small {
+        font-size: 6px;
+        letter-spacing: 0.22em;
+    }
+
+
+    .anniversary-divider-copy strong {
+        font-size: 13px;
+    }
+
+}
+
+
+/* =========================================================
+   6. REDUCED MOTION ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .one-wrap::before,
+    .celebration-particle,
+    .model-aura::after,
+    .anniversary-divider > span {
+        animation: none !important;
+    }
+
+}
