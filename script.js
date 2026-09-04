@@ -435,3 +435,28 @@ const io = new IntersectionObserver(
 );
 
 revealEls.forEach(el => io.observe(el));
+
+const soundToggleBtn = document.querySelector('#soundToggleBtn');
+
+function forcePlayAudio() {
+  if (!introMusic) return;
+  
+  introMusic.play().then(() => {
+    console.log("Audio playing successfully");
+    if (soundToggleBtn) soundToggleBtn.style.display = 'none'; // Hide button once playing
+  }).catch(error => {
+    console.log("Autoplay blocked on mobile:", error);
+  });
+}
+
+// Listen for touches or clicks anywhere on mobile to kickstart audio
+window.addEventListener('touchstart', () => {
+  forcePlayAudio();
+}, { once: true });
+
+if (soundToggleBtn) {
+  soundToggleBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    forcePlayAudio();
+  });
+}
